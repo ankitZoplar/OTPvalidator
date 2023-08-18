@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SMS OTP Demo</title>
+</head>
+<body>
+  <h1>SMS OTP Demo</h1>
+  <form id="sendOTPForm">
+    <label for="phoneNumber">Phone Number:</label>
+    <input type="text" id="phoneNumber" required><br>
+    <label for="email">Email:</label>
+    <input type="email" id="email" required><br>
+    <button type="button" id="sendOTPButton">Send OTP</button>
+  </form>
+
+  <form id="verifyOTPForm" style="display: none;">
+    <label for="otp">OTP:</label>
+    <input type="text" id="otp" required><br>
+    <button type="button" id="verifyOTPButton">Verify OTP</button>
+  </form>
+
+  <script>
+    const sendOTPForm = document.getElementById('sendOTPForm');
+    const verifyOTPForm = document.getElementById('verifyOTPForm');
+    const sendOTPButton = document.getElementById('sendOTPButton');
+    const verifyOTPButton = document.getElementById('verifyOTPButton');
+
+    sendOTPButton.addEventListener('click', async () => {
+      const phoneNumber = document.getElementById('phoneNumber').value;
+      const email = document.getElementById('email').value;
+
+      if (!phoneNumber || !email) {
+        alert('Phone number and email are required');
+        return;
+      }
+
+      try {
+        const response = await fetch('/send-otp', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ phoneNumber, email })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          alert(data.message);
+          sendOTPForm.style.display = 'none';
+          verifyOTPForm.style.display = 'block';
+        } else {
+          alert(data.error);
+        }
+      } catch (error) {
+        console.error('Error sending OTP:', error);
+      }
+    });
+
+    verifyOTPButton.addEventListener('click', async () => {
+      const phoneNumber = document.getElementById('phoneNumber').value;
+      const otp = document.getElementById('otp').value;
+
+      if (!otp) {
+        alert('OTP is required');
+        return;
+      }
+
+      try {
+        const response = await fetch('/verify-otp', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ phoneNumber, otp })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          alert(data.message);
+        } else {
+          alert(data.error);
+        }
+      } catch (error) {
+        console.error('Error verifying OTP:', error);
+      }
+    });
+  </script>
+</body>
+</html>

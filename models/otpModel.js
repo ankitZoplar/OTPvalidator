@@ -24,34 +24,3 @@ class OTPModel {
   module.exports = new OTPModel();
   
 
-// class OTPModel {
-//     constructor() {
-//       this.activeOTPs = {};
-//     }
-  
-//     generateOTP() {
-//       return Math.floor(100000 + Math.random() * 900000).toString();
-//     }
-  
-//     createOTP(phoneNumber, email) {
-//       const otp = this.generateOTP();
-//       const otpExpiration = Date.now() + 5 * 60 * 1000; // 5 minutes
-//       this.activeOTPs[phoneNumber] = { otp, email, expiresAt: otpExpiration };
-//       return otp;
-//     }
-  
-//     verifyOTP(phoneNumber, enteredOTP, email) {
-//       const activeOTP = this.activeOTPs[phoneNumber];
-//       if (!activeOTP || activeOTP.otp !== enteredOTP || activeOTP.expiresAt < Date.now()) {
-//         return false;
-//       }
-//       if (activeOTP.email !== email) {
-//         return false;
-//       }
-//       delete this.activeOTPs[phoneNumber];
-//       return true;
-//     }
-//   }
-  
-//   module.exports = new OTPModel();
-  

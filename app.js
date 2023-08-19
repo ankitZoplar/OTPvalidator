@@ -12,23 +12,3 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
-
-// const express = require('express');
-// const bodyParser = require('body-parser');
-// const path = require('path');
-// const otpRoutes = require('./routes/otpRoutes');
-
-// const app = express();
-
-// app.use(bodyParser.urlencoded({ extended: true }));
-
-// app.get('/', (req, res) => {
-//   res.sendFile(path.join(__dirname, 'views', 'index.html'));
-// });
-
-// app.use('/', otpRoutes);
-
-// const PORT = 3000;
-// app.listen(PORT, () => {
-//   console.log(`Server is running on port ${PORT}`);
-// });
